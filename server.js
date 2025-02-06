@@ -37,10 +37,17 @@ mongoose
 // upgrade http server to websocket server
 const io = new Server(server, {
   cors: {
-    origin: "*", // Or specify allowed origins
-    methods: ["GET", "POST"],
+    origin: "https://b13-eeszen24.mak3r.dev",
+    credentials: true,
   },
-  transports: ["websocket", "polling"],
+});
+
+io.on("connection", (socket) => {
+  console.log("✅ New client connected:", socket.id);
+
+  socket.on("disconnect", (reason) => {
+    console.log("⚠️ Client disconnected:", reason);
+  });
 });
 
 // io.connection
