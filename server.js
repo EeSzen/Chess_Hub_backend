@@ -36,7 +36,11 @@ mongoose
 
 // upgrade http server to websocket server
 const io = new Server(server, {
-  cors: "*", // allow connection from any origin
+  cors: {
+    origin: "*", // Or specify allowed origins
+    methods: ["GET", "POST"],
+  },
+  transports: ["websocket", "polling"],
 });
 
 // io.connection
@@ -250,10 +254,11 @@ app.use("/api/games", require("./routes/game"));
 app.use("/api/leaderboards", require("./routes/leaderboard"));
 app.use("/api/openings", require("./routes/openings"));
 
-// Define server port
-const PORT = process.env.PORT || 5555;
+// // Define server port
+// const PORT = process.env.PORT || 5555;
 
 // Start the server
+const PORT = process.env.PORT || 5555;
 server.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
