@@ -241,6 +241,7 @@ app.get("/", (req, res) => {
 app.use("/auth", require("./routes/user"));
 app.use("/games", require("./routes/game"));
 app.use("/leaderboards", require("./routes/leaderboard"));
+app.use("/openings", require("./routes/openings"));
 
 // Define server port
 const PORT = process.env.PORT || 5555;

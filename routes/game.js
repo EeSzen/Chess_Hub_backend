@@ -1,10 +1,18 @@
 const express = require("express");
 const router = express.Router();
 
-const { saveGame, getGames, getGame, deleteGame } = require("../controller/game");
+const {
+  saveGame,
+  getGames,
+  getGame,
+  deleteGame,
+} = require("../controller/game");
+
+// const { isValidUser } = require("../Middleware/auth");
 
 // POST route to save the game
 router.post("/", async (req, res) => {
+  //  isValidUser,
   try {
     const { moves, winner, players, date } = req.body;
     // console.log("Received Game Data:", JSON.stringify(req.body, null, 2));
@@ -12,20 +20,21 @@ router.post("/", async (req, res) => {
     const game = await saveGame(moves, winner, players, date);
     // console.log("Received Game Data:", JSON.stringify(req.body, null, 2));
 
-    res.status(200).json({
+    res.status(200).send({
       message: "Game saved successfully",
       game,
     });
   } catch (error) {
     // Handle errors if saving the game fails
-    res.status(400).json({
+    res.status(400).send({
       error: error.message,
     });
   }
 });
 
 // GET all the history
-router.get("/", async (req, res) => {
+router.get("/", async (req, res) => { 
+  // isValidUser,
   try {
     const history = await getGames();
     res.status(200).send(history);
@@ -53,6 +62,7 @@ router.get("/:_id", async (req, res) => {
 
 // DELETE one game history
 router.delete("/:_id", async (req, res) => {
+  // , isValidUser
   try {
     const _id = req.params._id;
     await deleteGame(_id);
