@@ -24,7 +24,7 @@ app.use(cors());
 
 // connect to MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/chesshub")
+  .connect(process.env.MONGO_URL+"/chesshub")
   .then(() => {
     // if mongodb is successfully connected
     console.log("MongoDB is connected");
@@ -233,15 +233,15 @@ io.on("connection", (socket) => {
 });
 
 // root route
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("Happy coding!");
 });
 
 // routes
-app.use("/auth", require("./routes/user"));
-app.use("/games", require("./routes/game"));
-app.use("/leaderboards", require("./routes/leaderboard"));
-app.use("/openings", require("./routes/openings"));
+app.use("/api/auth", require("./routes/user"));
+app.use("/api/games", require("./routes/game"));
+app.use("/api/leaderboards", require("./routes/leaderboard"));
+app.use("/api/openings", require("./routes/openings"));
 
 // Define server port
 const PORT = process.env.PORT || 5555;
