@@ -24,8 +24,8 @@ app.use(cors());
 
 // connect to MongoDB
 mongoose
-  // .connect(process.env.MONGO_URL + "/chesshub")
-  .connect("mongodb://localhost:27017/chesshub")
+  .connect(process.env.MONGO_URL + "/chesshub")
+  // .connect("mongodb://localhost:27017/chesshub")
   .then(() => {
     // if mongodb is successfully connected
     console.log("MongoDB is connected");
