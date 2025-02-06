@@ -24,7 +24,8 @@ app.use(cors());
 
 // connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_URL+"/chesshub")
+  // .connect(process.env.MONGO_URL + "/chesshub")
+  .connect("mongodb://localhost:27017/chesshub")
   .then(() => {
     // if mongodb is successfully connected
     console.log("MongoDB is connected");
@@ -233,11 +234,17 @@ io.on("connection", (socket) => {
 });
 
 // root route
+// app.get("/", (req, res) => {
 app.get("/api", (req, res) => {
   res.send("Happy coding!");
 });
 
 // routes
+// app.use("/auth", require("./routes/user"));
+// app.use("/games", require("./routes/game"));
+// app.use("/leaderboards", require("./routes/leaderboard"));
+// app.use("/openings", require("./routes/openings"));
+
 app.use("/api/auth", require("./routes/user"));
 app.use("/api/games", require("./routes/game"));
 app.use("/api/leaderboards", require("./routes/leaderboard"));
